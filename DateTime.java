@@ -1,7 +1,7 @@
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 
-class Scratch {
+class DateTime {
     public static void main(String[] args) {
         // Instant
         // DST
