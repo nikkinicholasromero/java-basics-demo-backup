@@ -1,10 +1,8 @@
 import java.time.*;
+import java.time.temporal.ChronoUnit;
 
 class Scratch {
     public static void main(String[] args) {
-        // Epoch
-        // Duration
-        // Period
         // Instant
         // DST
     }
@@ -179,7 +177,115 @@ class Scratch {
         zonedDateTime = zonedDateTime.minusMonths(1);
         zonedDateTime = zonedDateTime.minusYears(1);
 
-        // Plus Duration and Period
+        System.out.println(LocalTime.now().plus(Duration.ofHours(24)));
+        System.out.println(LocalTime.now().plus(Duration.ofDays(1)));
+        // System.out.println(LocalTime.now().plus(Period.ofDays(1))); // UnsupportedTemporalTypeException
+
+        System.out.println(LocalDate.now().plus(Period.ofMonths(12)));
+        System.out.println(LocalDate.now().plus(Period.ofDays(1)));
+        // System.out.println(LocalDate.now().plus(Duration.ofDays(1))); // UnsupportedTemporalTypeException
+
+        System.out.println(LocalDateTime.now().plus(Duration.ofHours(12)));
+        System.out.println(LocalDateTime.now().plus(Duration.ofDays(1)));
+        System.out.println(LocalDateTime.now().plus(Period.ofDays(1)));
+        System.out.println(LocalDateTime.now().plus(Period.ofMonths(12)));
+
+        System.out.println(ZonedDateTime.now().plus(Duration.ofHours(12)));
+        System.out.println(ZonedDateTime.now().plus(Duration.ofDays(1)));
+        System.out.println(ZonedDateTime.now().plus(Period.ofDays(1)));
+        System.out.println(ZonedDateTime.now().plus(Period.ofMonths(12)));
+
+        System.out.println(LocalTime.now().minus(Duration.ofHours(24)));
+        System.out.println(LocalTime.now().minus(Duration.ofDays(1)));
+        // System.out.println(LocalTime.now().minus(Period.ofDays(1))); // UnsupportedTemporalTypeException
+
+        System.out.println(LocalDate.now().minus(Period.ofMonths(12)));
+        System.out.println(LocalDate.now().minus(Period.ofDays(1)));
+        // System.out.println(LocalDate.now().minus(Duration.ofDays(1))); // UnsupportedTemporalTypeException
+
+        System.out.println(LocalDateTime.now().minus(Duration.ofHours(12)));
+        System.out.println(LocalDateTime.now().minus(Duration.ofDays(1)));
+        System.out.println(LocalDateTime.now().minus(Period.ofDays(1)));
+        System.out.println(LocalDateTime.now().minus(Period.ofMonths(12)));
+
+        System.out.println(ZonedDateTime.now().minus(Duration.ofHours(12)));
+        System.out.println(ZonedDateTime.now().minus(Duration.ofDays(1)));
+        System.out.println(ZonedDateTime.now().minus(Period.ofDays(1)));
+        System.out.println(ZonedDateTime.now().minus(Period.ofMonths(12)));
     }
 
+    private static void epoch() {
+        LocalDate localDate = LocalDate.now();
+        System.out.println(localDate.toEpochDay());
+
+        LocalTime localTime = LocalTime.now();
+
+        System.out.println(localDate.toEpochSecond(localTime, ZoneOffset.UTC));
+        System.out.println(localTime.toEpochSecond(localDate, ZoneOffset.UTC));
+
+        LocalDateTime localDateTime = LocalDateTime.now();
+        ZonedDateTime zonedDateTime = ZonedDateTime.now();
+
+        System.out.println(localDateTime.toEpochSecond(ZoneOffset.UTC));
+        System.out.println(zonedDateTime.toEpochSecond());
+    }
+
+    private static void duration() {
+        System.out.println(Duration.ofDays(1));
+        System.out.println(Duration.ofHours(1));
+        System.out.println(Duration.ofMinutes(1));
+        System.out.println(Duration.ofSeconds(1));
+        System.out.println(Duration.ofMillis(1));
+        System.out.println(Duration.ofNanos(1));
+        System.out.println(Duration.of(1, ChronoUnit.DAYS));
+        System.out.println(Duration.of(1, ChronoUnit.HOURS));
+        System.out.println(Duration.of(1, ChronoUnit.MINUTES));
+        System.out.println(Duration.of(1, ChronoUnit.SECONDS));
+        System.out.println(Duration.of(1, ChronoUnit.MILLIS));
+        System.out.println(Duration.of(1, ChronoUnit.NANOS));
+
+        System.out.println(Duration.ofDays(1)); // PT24H
+        System.out.println(Duration.ofHours(24)); // PT24H
+        System.out.println(Duration.ofMinutes(60)); // PT1H
+        System.out.println(Duration.ofSeconds(60)); // PT1M
+        System.out.println(Duration.ofMillis(1000)); // PT1S
+        System.out.println(Duration.ofNanos(1000000000L)); // PT1S
+        System.out.println(Duration.of(1, ChronoUnit.DAYS)); // PT24H
+        System.out.println(Duration.of(24, ChronoUnit.HOURS)); // PT24H
+        System.out.println(Duration.of(60, ChronoUnit.MINUTES)); // PT1H
+        System.out.println(Duration.of(60, ChronoUnit.SECONDS)); // PT1M
+        System.out.println(Duration.of(1000, ChronoUnit.MILLIS)); // PT1S
+        System.out.println(Duration.of(1000000000L, ChronoUnit.NANOS)); //PT1S
+
+        System.out.println(Duration.parse("PT25H61M74S")); // PT26H2M14S
+    }
+
+    private static void period() {
+        System.out.println(Period.ofYears(1));
+        System.out.println(Period.ofMonths(12));
+        System.out.println(Period.ofWeeks(2));
+        System.out.println(Period.ofDays(31));
+        System.out.println(Period.of(1, 1, 1));
+        System.out.println(Period.parse("P1Y1M1D"));
+    }
+
+    private static void between() {
+        System.out.println(ChronoUnit.YEARS.between(LocalDate.now(), LocalDate.now()));
+        System.out.println(ChronoUnit.MONTHS.between(LocalDate.now(), LocalDate.now()));
+        System.out.println(ChronoUnit.WEEKS.between(LocalDate.now(), LocalDate.now()));
+        System.out.println(ChronoUnit.DAYS.between(LocalDate.now(), LocalDate.now()));
+
+        System.out.println(ChronoUnit.HOURS.between(LocalTime.now(), LocalTime.now()));
+        System.out.println(ChronoUnit.MINUTES.between(LocalTime.now(), LocalTime.now()));
+        System.out.println(ChronoUnit.SECONDS.between(LocalTime.now(), LocalTime.now()));
+
+        // System.out.println(ChronoUnit.YEARS.between(LocalTime.now(), LocalTime.now())); // UnsupportedTemporalTypeException
+        // System.out.println(ChronoUnit.MONTHS.between(LocalTime.now(), LocalTime.now())); // UnsupportedTemporalTypeException
+        // System.out.println(ChronoUnit.WEEKS.between(LocalTime.now(), LocalTime.now())); // UnsupportedTemporalTypeException
+        // System.out.println(ChronoUnit.DAYS.between(LocalTime.now(), LocalTime.now())); // UnsupportedTemporalTypeException
+
+        // System.out.println(ChronoUnit.HOURS.between(LocalDate.now(), LocalDate.now())); // UnsupportedTemporalTypeException
+        // System.out.println(ChronoUnit.MINUTES.between(LocalDate.now(), LocalDate.now())); // UnsupportedTemporalTypeException
+        // System.out.println(ChronoUnit.SECONDS.between(LocalDate.now(), LocalDate.now())); // UnsupportedTemporalTypeException
+    }
 }
